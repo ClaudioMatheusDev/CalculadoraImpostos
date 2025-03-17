@@ -11,6 +11,16 @@ public class CalculadoraImposto extends Calculadora{
             return subtrair(multiplicar(valorProduto, 0.60), 20);
         }
     }
+
+    public double calcularValorFinal(double precoProduto) {
+        double imposto = calcularImposto(precoProduto);
+        if (imposto >= 0) {
+            return somar(precoProduto, imposto);
+        } else {
+            return -1; 
+        }
+    }
+
 }
 
 
