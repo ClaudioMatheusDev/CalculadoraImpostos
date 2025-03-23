@@ -1,10 +1,12 @@
 package calculadora.fiscal;
 
 import java.util.Scanner;
-import calculadora.Cliente;
-import calculadora.Loja;
-import calculadora.Produto;
-import calculadora.CalculadoraImposto;
+
+import calculadora.Calculadora.Calculadora;
+import calculadora.Calculadora.CalculadoraImposto;
+import calculadora.Loja.Cliente;
+import calculadora.Loja.Loja;
+import calculadora.Loja.Produto;
 
 public class Main {
     public static void main(String[] args) {

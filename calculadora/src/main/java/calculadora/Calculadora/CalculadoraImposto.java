@@ -1,6 +1,4 @@
-package calculadora;
-
-import calculadora.fiscal.Calculadora;
+package calculadora.Calculadora;
 
 public class CalculadoraImposto extends Calculadora{
 

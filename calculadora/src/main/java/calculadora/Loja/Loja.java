@@ -1,8 +1,10 @@
-package calculadora;
+package calculadora.Loja;
 
 
 import java.util.ArrayList;
 import java.util.List;
+
+import calculadora.Calculadora.CalculadoraImposto;
 
 public class Loja {
     private Cliente cliente;

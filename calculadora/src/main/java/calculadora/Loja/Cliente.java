@@ -1,4 +1,4 @@
-package calculadora;
+package calculadora.Loja;
 
 public class Cliente {
     private String nome;

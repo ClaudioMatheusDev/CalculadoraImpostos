@@ -1,4 +1,4 @@
-package calculadora.fiscal;
+package calculadora.Calculadora;
 
 public class Calculadora {
 

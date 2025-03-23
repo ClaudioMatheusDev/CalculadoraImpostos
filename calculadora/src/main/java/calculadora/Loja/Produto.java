@@ -1,4 +1,6 @@
-package calculadora;
+package calculadora.Loja;
+
+import calculadora.Calculadora.CalculadoraImposto;
 
 public class Produto {
     private String nome;
