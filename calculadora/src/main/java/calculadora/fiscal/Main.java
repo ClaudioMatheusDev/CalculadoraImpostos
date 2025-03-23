@@ -1,7 +1,9 @@
 package calculadora.fiscal;
 
 import java.util.Scanner;
-
+import calculadora.Cliente;
+import calculadora.Loja;
+import calculadora.Produto;
 import calculadora.CalculadoraImposto;
 
 public class Main {
@@ -9,16 +11,15 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Calculadora calculadora = new Calculadora();
         CalculadoraImposto calculadoraImposto = new CalculadoraImposto();
+        Loja loja = new Loja();
 
         while (true) {
             System.out.println("=======================================");
-            System.out.println("       CALCULADORA DE IMPOSTOS");
+            System.out.println("       SISTEMA DE LOJA E IMPOSTOS");
             System.out.println("=======================================");
-            System.out.println("1. Somar.");
-            System.out.println("2. Multiplicar.");
-            System.out.println("3. Dividir.");
-            System.out.println("4. Subtrair.");
-            System.out.println("5. Calcular imposto de importação.");
+            System.out.println("1. Operações básicas (somar, subtrair, etc.).");
+            System.out.println("2. Calcular imposto de importação.");
+            System.out.println("3. Registrar venda na loja.");
             System.out.println("0. Fechar Programa.");
             System.out.println("======================================");
 
@@ -29,32 +30,80 @@ public class Main {
                 break;
             }
 
-            double num1 = 0, num2 = 0;
-
-            if (opcao >= 1 && opcao <= 4) {
-                num1 = lerNumero("Digite o primeiro número: ", scanner);
-                num2 = lerNumero("Digite o segundo número: ", scanner);
-            } else if (opcao == 5) {
-                num1 = lerNumero("Digite o valor do produto: ", scanner);
-            }
-
             switch (opcao) {
                 case 1:
-                    System.out.println("Resultado da soma: " + calculadora.somar(num1, num2));
+
+                    System.out.println("=======================================");
+                    System.out.println("       OPERAÇÕES BÁSICAS");
+                    System.out.println("=======================================");
+                    System.out.println("1. Somar.");
+                    System.out.println("2. Multiplicar.");
+                    System.out.println("3. Dividir.");
+                    System.out.println("4. Subtrair.");
+                    System.out.println("======================================");
+
+                    int opcaoCalculadora = lerNumeroInt("Digite a opção desejada: ", scanner);
+                    double num1 = lerNumero("Digite o primeiro número: ", scanner);
+                    double num2 = lerNumero("Digite o segundo número: ", scanner);
+
+                    switch (opcaoCalculadora) {
+                        case 1:
+                            System.out.println("Resultado da soma: " + calculadora.somar(num1, num2));
+                            break;
+                        case 2:
+                            System.out.println("Resultado da multiplicação: " + calculadora.multiplicar(num1, num2));
+                            break;
+                        case 3:
+                            System.out.println("Resultado da divisão: " + calculadora.dividir(num1, num2));
+                            break;
+                        case 4:
+                            System.out.println("Resultado da subtração: " + calculadora.subtrair(num1, num2));
+                            break;
+                        default:
+                            System.out.println("Opção inválida! Tente novamente.");
+                            break;
+                    }
                     break;
+
                 case 2:
-                    System.out.println("Resultado da multiplicação: " + calculadora.multiplicar(num1, num2));
+
+                    double valorProduto = lerNumero("Digite o valor do produto: ", scanner);
+                    System.out.println("O imposto de importação é: " + calculadoraImposto.calcularImposto(valorProduto));
+                    System.out.println("O valor final do produto é: " + calculadoraImposto.calcularValorFinal(valorProduto));
                     break;
+
                 case 3:
-                    System.out.println("Resultado da divisão: " + calculadora.dividir(num1, num2));
+
+                    System.out.println("=======================================");
+                    System.out.println("       REGISTRAR VENDA NA LOJA");
+                    System.out.println("=======================================");
+
+                    System.out.print("Digite o nome do cliente: ");
+                    String nomeCliente = scanner.nextLine();
+                    System.out.print("Digite o CPF do cliente: ");
+                    String cpfCliente = scanner.nextLine();
+                    Cliente cliente = new Cliente(nomeCliente, cpfCliente);
+                    loja.setCliente(cliente);
+
+                    while (true) {
+                        System.out.println("---------------------------------------");
+                        System.out.print("Digite o nome do produto (ou 'sair' para finalizar): ");
+                        String nomeProduto = scanner.nextLine();
+                        if (nomeProduto.equalsIgnoreCase("sair")) {
+                            break;
+                        }
+
+                        double precoProduto = lerNumero("Digite o preço do produto: ", scanner);
+                        System.out.print("O produto é importado? (s/n): ");
+                        boolean isImportado = scanner.nextLine().equalsIgnoreCase("s");
+
+                        Produto produto = new Produto(nomeProduto, precoProduto, isImportado);
+                        loja.adicionarProduto(produto);
+                    }
+
+                    loja.finalizarVenda();
                     break;
-                case 4:
-                    System.out.println("Resultado da subtração: " + calculadora.subtrair(num1, num2));
-                    break;
-                case 5:
-                    System.out.println("O imposto de importação é: " + calculadoraImposto.calcularImposto(num1));
-                    System.out.println("O valor final do produto é: " + calculadoraImposto.calcularValorFinal(num1));
-                    break;
+
                 default:
                     System.out.println("Opção inválida! Tente novamente.");
                     break;
